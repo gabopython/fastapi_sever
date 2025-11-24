@@ -22,7 +22,6 @@ def get_oauth_handler():
         redirect_uri=REDIRECT_URI,
         scope=["tweet.read", "tweet.write", "users.read", "offline.access"],
         client_secret=CLIENT_SECRET,
-        client_type="confidential"
     )
 
 @app.get("/")

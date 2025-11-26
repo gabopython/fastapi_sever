@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request, HTTPException
 import tweepy
 from typing import Dict
 import os
+from fastapi.responses import HTMLResponse
 import urllib.parse
 
 CLIENT_ID = os.getenv("CLIENT_ID")
@@ -78,42 +79,45 @@ async def callback(request: Request):
 
         del oauth_handlers[twitter_state]
         del state_mapping[twitter_state]
-        return """<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Login Successful</title>
-                    <style>
-                        body {
-                            background-color: #000000;
-                            color: #FFFFFF;
-                            font-family: Arial, sans-serif;
-                            text-align: center;
-                            padding: 50px;
-                        }
-                        .container {
-                            background: linear-gradient(135deg, #71A58D, #3B7393);
-                            border-radius: 15px;
-                            padding: 30px;
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                        }
-                        h1 {
-                            color: #FFFFFF;
-                        }
-                        p {
-                            color: #FFFFFF;
-                            font-size: 18px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h1>✅ Login Successful!</h1>
-                        <p>You can close this window and return to Telegram.</p>
-                    </div>
-                </body>
-                </html>"""
+
+        html_content = """<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Login Successful</title>
+                <style>
+                body {
+                    background-color: #000000;
+                    color: #FFFFFF;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 50px;
+                }
+                .container {
+                    background: linear-gradient(135deg, #71A58D, #3B7393);
+                    border-radius: 15px;
+                    padding: 30px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                h1 {
+                    color: #FFFFFF;
+                }
+                p {
+                    color: #FFFFFF;
+                    font-size: 18px;
+                }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                <h1>✅ Login Successful!</h1>
+                <p>You can close this window and return to Telegram.</p>
+                </div>
+            </body>
+            </html>"""
+
+        return HTMLResponse(content=html_content, status_code=200, media_type="text/html")
 
 
     except Exception as e:

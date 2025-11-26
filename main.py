@@ -79,9 +79,61 @@ async def callback(request: Request):
         del oauth_handlers[twitter_state]
         del state_mapping[twitter_state]
 
-        return {
-            "message": "Login successful! You can close this window and return to the bot."
-        }
+        # retunr a html
+        # "Login successful! You can close this window and return to Telegram."
+        # 1. Black (background & outlines)
+            # Hex: #000000
+            # RGB: (0, 0, 0)
+
+            # 2. Light Green Gradient
+            # Hex: #71A58D
+            # RGB: (113, 165, 141)
+
+            # 3. Medium Blue Gradient
+            # Hex: #3B7393
+            # RGB: (59, 115, 147)
+
+            # 4. Dark Blue-Gray (some shaded areas)
+            # Hex: #253D43
+            # RGB: (37, 61, 67)
+        return """<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Login Successful</title>
+                    <style>
+                        body {
+                            background-color: #000000;
+                            color: #FFFFFF;
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            padding: 50px;
+                        }
+                        .container {
+                            background: linear-gradient(135deg, #71A58D, #3B7393);
+                            border-radius: 15px;
+                            padding: 30px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        }
+                        h1 {
+                            color: #FFFFFF;
+                        }
+                        p {
+                            color: #FFFFFF;
+                            font-size: 18px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>✅ Login Successful!</h1>
+                        <p>You can close this window and return to Telegram.</p>
+                    </div>
+                </body>
+                </html>"""
+
+
     except Exception as e:
         if twitter_state in oauth_handlers:
             del oauth_handlers[twitter_state]

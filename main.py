@@ -102,7 +102,7 @@ async def get_session(state: str, api_key: str):
     return {"status": "ready", "token": token_data}
 
 
-@app.delete("/delete_session")
+@app.get("/delete_session")
 async def delete_session(state: str, api_key: str):
     if api_key != INTERNAL_API_KEY:
         raise HTTPException(status_code=403, detail="Unauthorized")

@@ -37,10 +37,14 @@ async def generate_auth_url(state: str, api_key: str):
         raise HTTPException(status_code=403, detail="Unauthorized")
     
     oauth2_handler = get_oauth_handler()
-    # We pass 'state' to Twitter so it comes back in the callback
-    # This links the Telegram user to the Twitter login
-    authorization_url = oauth2_handler.get_authorization_url(state=state)
-    return {"url": authorization_url}
+    # Get the authorization URL without state parameter
+    authorization_url = oauth2_handler.get_authorization_url()
+    
+    # Append state as a query parameter manually
+    # Twitter will preserve this and return it in the callback
+    authorization_url_with_state = f"{authorization_url}&state={state}"
+    
+    return {"url": authorization_url_with_state}
 
 @app.get("/callback")
 async def callback(request: Request):

@@ -111,7 +111,7 @@ async def callback(request: Request):
             </head>
             <body>
                 <div class="container">
-                <h1>✅ Login Successful!</h1>
+                <h1>☑️ Login Successful!</h1>
                 <p>You can close this window and return to Telegram.</p>
                 </div>
             </body>

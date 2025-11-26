@@ -78,24 +78,6 @@ async def callback(request: Request):
 
         del oauth_handlers[twitter_state]
         del state_mapping[twitter_state]
-
-        # retunr a html
-        # "Login successful! You can close this window and return to Telegram."
-        # 1. Black (background & outlines)
-            # Hex: #000000
-            # RGB: (0, 0, 0)
-
-            # 2. Light Green Gradient
-            # Hex: #71A58D
-            # RGB: (113, 165, 141)
-
-            # 3. Medium Blue Gradient
-            # Hex: #3B7393
-            # RGB: (59, 115, 147)
-
-            # 4. Dark Blue-Gray (some shaded areas)
-            # Hex: #253D43
-            # RGB: (37, 61, 67)
         return """<!DOCTYPE html>
                 <html lang="en">
                 <head>
